@@ -1,0 +1,4 @@
+response
+beautifulsoup4
+openai
+pyyaml
