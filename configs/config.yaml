@@ -1,0 +1,23 @@
+keywords:
+  # Vietnamese
+  - ""
+  # English
+  - "sell customer data"
+  - "buy data"
+  - "personal information"
+  - "phone number list"
+  - "customer database"
+  - "leaked data"
+  - "leak data"
+
+email:
+  sender: ${EMAIL_SENDER}
+  password: ${EMAIL_PASSWORD}
+  receiver: ${EMAIL_RECEIVER}
+
+sources:
+  telegram:
+    - ""
+    - ""
+  websites:
+    - ""
