@@ -1,23 +1,39 @@
-keywords:
-  # Vietnamese
-  - ""
-  # English
-  - "sell customer data"
-  - "buy data"
-  - "personal information"
-  - "phone number list"
-  - "customer database"
-  - "leaked data"
-  - "leak data"
-
-email:
-  sender: ${EMAIL_SENDER}
-  password: ${EMAIL_PASSWORD}
-  receiver: ${EMAIL_RECEIVER}
-
-sources:
+collectors:
   telegram:
-    - ""
-    - ""
+    api_id: ${TELEGRAM_API_ID}
+    api_hash: ${TELEGRAM_API_HASH}
+    channels:
+      - "https://t.me/somechannel"
+      - "https://t.me/anothergroup"
   websites:
-    - ""
+    - "https://darkweb-forum.com/vietnam"
+    - "https://pastebin.com"
+
+detection:
+  keywords:
+    english:
+      - ""
+      - "sell customer data"
+      - "buy data"
+      - "personal information"
+      - "phone number list"
+      - "customer database"
+      - "leaked data"
+      - "leak data"
+    vietnamese:
+      - "bán data"
+      - "dữ liệu khách hàng"
+      - "mua thông tin"
+      - "data full"
+      - "số điện thoại khách hàng"
+  regex:
+    phone_number: "\\b(0[0-9]{9}|\\+84[0-9]{9})\\b"
+    email: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+    credit_card: "\\b(?:\\d[ -]*?){13,16}\\b"
+alert:
+  email:
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    sender: ${EMAIL_SENDER}
+    password: ${EMAIL_PASSWORD}
+    receiver: ${EMAIL_RECEIVER}
