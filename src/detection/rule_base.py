@@ -1,35 +1,26 @@
 import re
 
-def detect(text: str, keywords: list) -> bool:
+class RuleDetector:
     """
-    Rule-based detector: content check - keyword or pattern
-
-    Args:
-        text (str): Post content
-        keywords (list): keyword in yaml
-
-    Returns:
-        bool:
-            - True - detect keyword
-            - False - safety
+    Detects suspicious content based on keywords and regex rules.
     """
-    if not text:
-        return False
-    text_lower = text.lower()
-
-    for keyword in keywords:
-        if keyword.lower() in text_lower():
-            return True
-        
-    patterns = [
-        r"\b\d{9,11}\b",
-        r"[a-zA-Z0-9_.+=]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
-        r"\b\d{9}[0-9Xx]\b",
-        r"\b\d{12}[0-9Xx]\b"
-    ]
-
-    for pattern in patterns:
-        if re.search(pattern, text):
-            return True
+    def __init__(self, keywords, regex_rules):
+        self.keywords = [kw.lower() for lang in keywords.values() for kw in lang if kw]
+        self.regex_rules = regex_rules
     
-    return False
+    def detect(self, text):
+        findinds = []
+
+        # keyword-based detection
+
+        for kw in self.keywords:
+            if kw in text.lower():
+                findinds.append(f"Keyword matched: {kw}")
+        
+        # Regex-based detection
+        for rule_name, pattern in self.regex_rules.items():
+            matches = re.findall(pattern, text)
+            if matches:
+                findinds.append(f"{rule_name} found: {matches[:3]}...") #limit output
+
+            return findinds
